@@ -1,18 +1,19 @@
-# Nginx-rtmp-hls
-Docker image to run an Nginx RTMP/HLS server.
+# Nginx-RTMP-HLS-Adaptive
+Docker image to run an Nginx RTMP/HLS server, with multiple ffmpeg transcoding for adaptive HLS stream.
 
-NGINX Version 1.10.3
-nginx-rtmp-module Version 1.1.10
+* Alpine version: **alpine:latest**
+* NGINX version: **1.19.5**
+* nginx-rtmp-module version: **master**
 
 ### Running
 
 Use the following command to run the container and bind the port 1935 and 80 to the host machine:
 ```
-docker run -p 1935:1935 -p 80:80 shaneen31/nginx-rtmp-hls
+docker run -p 1935:1935 -p 80:80 infinitumtech/nginx-rtmp-hls-adaptive
 ```
 
 ### OBS Studio Configuration
-Under Settings > Stream, set the follwing parameters:
+Under Settings > Stream, set the following parameters:
 ```
 Streaming Service: Custom streaming server
 Server: rtmp://<Server ip>/live
