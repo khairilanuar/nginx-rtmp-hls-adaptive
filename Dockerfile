@@ -50,7 +50,12 @@ RUN	cd /tmp && \
 RUN	cd /opt/ && \
 	tar cvzf /tmp/nginx.tar.gz nginx
 
-COPY nginx.conf /opt/nginx/conf/
+# Forward logs to Docker
+RUN ln -sf /dev/stdout /opt/nginx/logs/access.log && \
+    ln -sf /dev/stderr /opt/nginx/logs/error.log
+
+RUN cp /tmp/nginx-rtmp-module/stat.xsl /opt/nginx/conf/stat.xsl
+COPY nginx.conf-adaptive /opt/nginx/conf/
 
 EXPOSE 1935
 EXPOSE 80
