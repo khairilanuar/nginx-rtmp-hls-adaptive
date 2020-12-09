@@ -66,8 +66,8 @@ COPY start.sh /opt/start.sh
 # available variables
 ENV AUTH_TOKEN "yoursecrettoken"
 
-RUN cd /opt && /
-    chmod +x start.sh && /
+RUN cd /opt && \
+    chmod +x start.sh && \
     ./start.sh
 
 EXPOSE 1935
