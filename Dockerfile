@@ -66,8 +66,12 @@ COPY start.sh /opt/start.sh
 # available variables
 ENV AUTH_TOKEN "yoursecrettoken"
 
+RUN cd /opt && /
+    chmod +x start.sh && /
+    ./start.sh
+
 EXPOSE 1935
 EXPOSE 80
 
-# CMD ["/opt/nginx/sbin/nginx", "-g", "daemon off;"]
-CMD chmod +x /opt/start.sh; sync; /opt/start.sh; sync;
+CMD ["/opt/nginx/sbin/nginx", "-g", "daemon off;"]
+# CMD chmod +x /opt/start.sh; sync; /opt/start.sh; sync;
