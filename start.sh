@@ -7,4 +7,4 @@ sed \
 /opt/nginx/conf/nginx.conf-adaptive > /opt/nginx/conf/nginx.conf;
 
 # start nginx
-/opt/nginx/sbin/nginx -g daemon off
+/opt/nginx/sbin/nginx
