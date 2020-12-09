@@ -9,17 +9,25 @@ Docker image to run an Nginx RTMP/HLS server, with multiple ffmpeg transcoding f
 
 Use the following command to run the container and bind the port 1935 and 80 to the host machine:
 ```
-docker run -p 1935:1935 -p 80:80 infinitumtech/nginx-rtmp-hls-adaptive
+docker run -p 1935:1935 -p 80:80 -e "AUTH_TOKEN=yoursecrettoken" infinitumtech/nginx-rtmp-hls-adaptive
 ```
+replace `yoursecrettoken` with your own secret token.
 
 ### OBS Studio Configuration
 Under Settings > Stream, set the following parameters:
 ```
 Streaming Service: Custom streaming server
-Server: rtmp://<Server ip>/live
-Stream Key: <Stream key>
+Server: rtmp://<server_ip>/stream?token=yoursecrettoken
+Stream Key: <stream_key>
 ```
 
 ### Streaming URLs
-rtmp://&lt;Server ip&gt;/live/&lt;Stream key&gt;
-http://&lt;Server ip&gt;/hls/&lt;Stream key&gt;.m3u8
+RTMP:
+```
+rtmp://<server_ip>/live/<stream_key>
+```
+
+HLS:
+```
+http://<server_ip>/hls/<stream_key>.m3u8
+```

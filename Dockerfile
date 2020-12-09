@@ -59,9 +59,15 @@ RUN ln -sf /dev/stdout /opt/nginx/logs/access.log && \
     ln -sf /dev/stderr /opt/nginx/logs/error.log
 
 RUN cp /tmp/nginx-rtmp-module/stat.xsl /opt/nginx/conf/stat.xsl
-COPY nginx.conf-adaptive /opt/nginx/conf/nginx.conf
+
+COPY nginx.conf-adaptive /opt/nginx/conf/nginx.conf-adaptive
+COPY start.sh /opt/start.sh
+
+# available variables
+ENV AUTH_TOKEN "yoursecrettoken"
 
 EXPOSE 1935
 EXPOSE 80
 
-CMD ["/opt/nginx/sbin/nginx", "-g", "daemon off;"]
+# CMD ["/opt/nginx/sbin/nginx", "-g", "daemon off;"]
+CMD chmod +x /opt/start.sh; sync; /opt/start.sh; sync;
