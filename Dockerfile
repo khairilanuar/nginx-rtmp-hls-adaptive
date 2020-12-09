@@ -4,7 +4,7 @@ MAINTAINER khairilanuar
 ENV NGINX_VERSION 1.19.5
 
 RUN	apk update && \
-	apk add \
+	apk add --no-cache  \
 		git \
 		gcc \
 		binutils \
@@ -12,6 +12,8 @@ RUN	apk update && \
 		isl \
 		libgomp \
 		libatomic \
+		libaio \
+		libaio-dev \
 		libgcc \
 		openssl \
 		pkgconf \
@@ -31,10 +33,11 @@ RUN	apk update && \
 		pcre-dev \
 		zlib-dev \
 		openssl-dev \
-		make
+		make \
+		libc-dev pcre-dev linux-headers
 
 RUN	cd /tmp/ && \
-	wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
+	wget https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
 	git clone https://github.com/arut/nginx-rtmp-module.git
 
 RUN	cd /tmp && \
@@ -43,6 +46,7 @@ RUN	cd /tmp && \
 	./configure \
 		--prefix=/opt/nginx \
 		--with-http_ssl_module \
+		--with-file-aio \
 		--add-module=../nginx-rtmp-module && \
 	make && \
 	make install
@@ -55,7 +59,7 @@ RUN ln -sf /dev/stdout /opt/nginx/logs/access.log && \
     ln -sf /dev/stderr /opt/nginx/logs/error.log
 
 RUN cp /tmp/nginx-rtmp-module/stat.xsl /opt/nginx/conf/stat.xsl
-COPY nginx.conf-adaptive /opt/nginx/conf/
+COPY nginx.conf-adaptive /opt/nginx/conf/nginx.conf
 
 EXPOSE 1935
 EXPOSE 80
